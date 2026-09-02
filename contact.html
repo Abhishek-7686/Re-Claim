@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="/found-items">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="login.html" class="btn outline">Login</a>
+            <a href="register.html" class="btn">Register</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Have a question, found an issue, or need help with a claim? Reach out below.</p>
+        </div>
+
+        <div class="hero-content">
+            <div class="auth-card" style="margin:0;">
+                <h2>Send a Message</h2>
+                <p class="auth-subtitle">We'll get back to you as soon as possible.</p>
+
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName">Full Name</label>
+                        <input type="text" id="contactName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactEmail">Email Address</label>
+                        <input type="email" id="contactEmail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" placeholder="What is this regarding?" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" rows="5" placeholder="Type your message here..." required
+                            style="width:100%; padding:10px 12px; border:1px solid #ccc; border-radius:6px; font-size:15px; font-family:inherit; resize:vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn full-width" id="contactBtn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="hero-card">
+                <div class="icon">📬</div>
+                <h2>Get in Touch</h2>
+                <p style="margin-bottom:20px;">Prefer email or a visit? Here's how to reach the ReClaim team directly.</p>
+
+                <div style="text-align:left; margin-top:10px;">
+                    <p style="margin-bottom:12px;"><strong style="color:#173f6b;">Email:</strong><br>support@reclaim.college.edu</p>
+                    <p style="margin-bottom:12px;"><strong style="color:#173f6b;">Location:</strong><br>Student Services Office, Main Campus</p>
+                    <p><strong style="color:#173f6b;">Hours:</strong><br>Mon - Fri, 9:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
