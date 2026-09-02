@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="/found-items">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <span class="welcome-text">Hi, Abhishek 👋</span>
+            <a href="login.html" class="btn outline">Logout</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="dash-hero">
+    <div class="container">
+        <h1>Student Dashboard</h1>
+        <p>Track items you've reported, browse found items, and manage your claims.</p>
+    </div>
+</section>
+
+<section class="section dash-section">
+    <div class="container dash-layout">
+
+        <!-- Sidebar -->
+        <aside class="dash-sidebar">
+            <button class="dash-nav-btn active" id="tabOverviewBtn" onclick="showTab('overview')">
+                <span class="dash-icon">📊</span> Overview
+            </button>
+            <button class="dash-nav-btn" id="tabReportedBtn" onclick="showTab('reported')">
+                <span class="dash-icon">📦</span> My Reported Items
+            </button>
+            <button class="dash-nav-btn" id="tabBrowseBtn" onclick="showTab('browse')">
+                <span class="dash-icon">🔍</span> Browse Items
+            </button>
+            <button class="dash-nav-btn" id="tabClaimsBtn" onclick="showTab('claims')">
+                <span class="dash-icon">✅</span> My Claims
+            </button>
+            <button class="dash-nav-btn" id="tabProfileBtn" onclick="showTab('profile')">
+                <span class="dash-icon">👤</span> Profile
+            </button>
+            <a href="/report-item" class="btn full-width dash-report-btn">+ Report Found Item</a>
+        </aside>
+
+        <!-- Main content -->
+        <div class="dash-content">
+
+            <!-- Overview Tab -->
+            <div id="tab-overview" class="dash-tab">
+                <div class="section-title dash-title">
+                    <h2>Overview</h2>
+                    <p>A quick summary of your ReClaim activity.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h2 id="statReported">0</h2>
+                        <p>Items Reported</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statApproved">0</h2>
+                        <p>Approved Items</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statClaims">0</h2>
+                        <p>Claims Submitted</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statResolved">0</h2>
+                        <p>Items Resolved</p>
+                    </div>
+                </div>
+
+                <div class="section-title dash-title" style="margin-top:40px;">
+                    <h2>Recent Activity</h2>
+                    <p>Your latest reports and claims.</p>
+                </div>
+
+                <div id="recentActivityList" class="activity-list"></div>
+            </div>
+
+            <!-- Reported Items Tab -->
+            <div id="tab-reported" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>My Reported Items</h2>
+                    <p>Items you've reported as found.</p>
+                </div>
+
+                <div id="reportedItemsList" class="item-grid"></div>
+            </div>
+
+            <!-- Browse Items Tab -->
+            <div id="tab-browse" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>Browse Found Items</h2>
+                    <p>Search approved items to find something that belongs to you.</p>
+                </div>
+
+                <div class="dash-search">
+                    <input type="text" id="browseSearch" placeholder="Search by item name or category...">
+                </div>
+
+                <div id="browseItemsList" class="item-grid"></div>
+            </div>
+
+            <!-- Claims Tab -->
+            <div id="tab-claims" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>My Claims</h2>
+                    <p>Items you've requested to claim, and their status.</p>
+                </div>
+
+                <div id="claimsList" class="item-grid"></div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="tab-profile" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>My Profile</h2>
+                    <p>Your account details.</p>
+                </div>
+
+                <div class="auth-card dash-profile-card">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" value="Aarav Sharma" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Student ID</label>
+                        <input type="text" value="STU2026042" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" value="aarav.sharma@college.edu" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Department / Year</label>
+                        <input type="text" value="Computer Science - 3rd Year" disabled>
+                    </div>
+                    <button class="btn full-width" disabled>Edit Profile (Coming Soon)</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
