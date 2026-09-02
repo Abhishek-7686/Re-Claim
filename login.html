@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="/found-items">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="login.html" class="btn outline">Login</a>
+            <a href="register.html" class="btn">Register</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="auth-section">
+    <div class="container">
+        <div class="auth-card">
+            <h2>Login to ReClaim</h2>
+            <p class="auth-subtitle">Welcome back! Please enter your details.</p>
+
+            <!-- Role selection: Student or Admin -->
+            <div class="role-toggle">
+                <button type="button" class="role-btn active" id="studentBtn">Student</button>
+                <button type="button" class="role-btn" id="adminBtn">Admin</button>
+            </div>
+
+            <form id="loginForm">
+                <!-- Keeps track of which role button is selected -->
+                <input type="hidden" id="loginRole" value="student">
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="you@college.edu" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+
+                <button type="submit" class="btn full-width" id="loginBtn">Login as Student</button>
+            </form>
+
+            <p class="auth-footer">
+                Don't have an account? <a href="register.html">Register here</a>
+            </p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
