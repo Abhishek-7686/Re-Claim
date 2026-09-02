@@ -1,0 +1,2 @@
+#about
+Re-Claim is a centralized digital platform that helps individuals report missing items or list found property. It uses searchable databases and matching algorithms to connect lost belongings with their rightful owners. These portals streamline the recovery process for organizations like universities, airports, and public transit systems.
