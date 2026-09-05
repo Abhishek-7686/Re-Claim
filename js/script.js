@@ -83,6 +83,12 @@ if (loginForm) {
         console.log("Password:", password);
 
         alert("Login clicked as " + role + "! (Backend not connected yet)");
+
+        if (role === "student") {
+            window.location.href = "dashboard.html";
+        } else if (role === "admin") {
+            window.location.href = "admin-dashboard.html";
+        }
     };
 }
 // ===== Student Register Form =====

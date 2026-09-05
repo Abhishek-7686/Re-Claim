@@ -660,3 +660,102 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== Admin Dashboard extras ===== */
+.dash-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.dash-card-actions .btn {
+    flex: 1;
+    margin-top: 0;
+    padding: 8px 10px;
+    font-size: 13.5px;
+}
+
+.table-wrap {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+
+.admin-table th {
+    background: #f5f7fa;
+    color: #173f6b;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.admin-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* ===== Found Items page ===== */
+.found-filters {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.found-filters input {
+    flex: 2;
+    min-width: 220px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+}
+
+.found-filters select {
+    flex: 1;
+    min-width: 160px;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: inherit;
+    background: white;
+}
+
+.found-filters input:focus,
+.found-filters select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.results-count {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+@media (max-width: 600px) {
+    .found-filters {
+        flex-direction: column;
+    }
+
+    .found-filters input,
+    .found-filters select {
+        width: 100%;
+    }
+}
