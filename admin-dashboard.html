@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="found-items.html">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <span class="welcome-text">Admin: Priya Verma 👋</span>
+            <a href="login.html" class="btn outline">Logout</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="dash-hero">
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p>Review reported items, approve listings, and verify ownership claims.</p>
+    </div>
+</section>
+
+<section class="section dash-section">
+    <div class="container dash-layout">
+
+        <!-- Sidebar -->
+        <aside class="dash-sidebar">
+            <button class="dash-nav-btn active" id="tabOverviewBtn" onclick="showAdminTab('overview')">
+                <span class="dash-icon">📊</span> Overview
+            </button>
+            <button class="dash-nav-btn" id="tabPendingBtn" onclick="showAdminTab('pending')">
+                <span class="dash-icon">🕓</span> Pending Items
+            </button>
+            <button class="dash-nav-btn" id="tabApprovedBtn" onclick="showAdminTab('approved')">
+                <span class="dash-icon">✅</span> Approved Items
+            </button>
+            <button class="dash-nav-btn" id="tabClaimsBtn" onclick="showAdminTab('claims')">
+                <span class="dash-icon">📥</span> Claim Requests
+            </button>
+            <button class="dash-nav-btn" id="tabUsersBtn" onclick="showAdminTab('users')">
+                <span class="dash-icon">👥</span> Registered Users
+            </button>
+        </aside>
+
+        <!-- Main content -->
+        <div class="dash-content">
+
+            <!-- Overview Tab -->
+            <div id="tab-overview" class="dash-tab">
+                <div class="section-title dash-title">
+                    <h2>Overview</h2>
+                    <p>Snapshot of Lost &amp; Found activity across campus.</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h2 id="statPending">0</h2>
+                        <p>Pending Review</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statApprovedTotal">0</h2>
+                        <p>Approved Items</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statClaimRequests">0</h2>
+                        <p>Claim Requests</p>
+                    </div>
+                    <div class="stat-card">
+                        <h2 id="statUsers">0</h2>
+                        <p>Registered Users</p>
+                    </div>
+                </div>
+
+                <div class="section-title dash-title" style="margin-top:40px;">
+                    <h2>Recent Activity</h2>
+                    <p>Latest reports and claim requests needing attention.</p>
+                </div>
+
+                <div id="adminRecentActivity" class="activity-list"></div>
+            </div>
+
+            <!-- Pending Items Tab -->
+            <div id="tab-pending" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>Pending Items</h2>
+                    <p>Newly reported items waiting for review before going public.</p>
+                </div>
+
+                <div id="pendingItemsList" class="item-grid"></div>
+            </div>
+
+            <!-- Approved Items Tab -->
+            <div id="tab-approved" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>Approved Items</h2>
+                    <p>Items currently visible to students on the Found Items page.</p>
+                </div>
+
+                <div id="approvedItemsList" class="item-grid"></div>
+            </div>
+
+            <!-- Claim Requests Tab -->
+            <div id="tab-claims" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>Claim Requests</h2>
+                    <p>Students who have requested to claim an item. Verify before approving.</p>
+                </div>
+
+                <div id="claimRequestsList" class="item-grid"></div>
+            </div>
+
+            <!-- Registered Users Tab -->
+            <div id="tab-users" class="dash-tab hidden">
+                <div class="section-title dash-title">
+                    <h2>Registered Users</h2>
+                    <p>Students and admins currently registered on ReClaim.</p>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="admin-table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Role</th>
+                                <th>Email</th>
+                                <th>Joined</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/admin-dashboard.js"></script>
+</body>
+</html>

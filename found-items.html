@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Found Items - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="found-items.html">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="login.html" class="btn outline">Login</a>
+            <a href="register.html" class="btn">Register</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="dash-hero">
+    <div class="container">
+        <h1>Found Items</h1>
+        <p>Browse items reported and approved by the ReClaim team. Found something of yours? Log in to claim it.</p>
+    </div>
+</section>
+
+<section class="section dash-section">
+    <div class="container">
+
+        <div class="found-filters">
+            <input type="text" id="foundSearch" placeholder="Search by item name...">
+
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Bags">Bags</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Accessories">Accessories</option>
+                <option value="Books">Books</option>
+                <option value="Documents">Documents</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
+        <p id="resultsCount" class="results-count"></p>
+
+        <div id="foundItemsList" class="item-grid"></div>
+
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>Found Something on Campus?</h2>
+        <p>Help a fellow student get their belongings back &mdash; report it in a few minutes.</p>
+        <a href="/report-item" class="btn white">Report Found Item</a>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/found-items.js"></script>
+</body>
+</html>
