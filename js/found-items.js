@@ -1,14 +1,10 @@
-// ===== Placeholder Data (will come from backend later) =====
-const foundItemsData = [
-    { name: "Grey Backpack", category: "Bags", location: "Main Gate", date: "2026-08-27" },
-    { name: "Scientific Calculator", category: "Electronics", location: "Exam Hall B", date: "2026-08-26" },
-    { name: "Silver Wristwatch", category: "Accessories", location: "Sports Ground", date: "2026-08-24" },
-    { name: "Chemistry Textbook", category: "Books", location: "Library, 1st Floor", date: "2026-08-22" },
-    { name: "Black Wired Earphones", category: "Electronics", location: "Canteen", date: "2026-08-30" },
-    { name: "Student ID Card", category: "Documents", location: "Admin Block", date: "2026-08-29" },
-    { name: "Blue Water Bottle", category: "Other", location: "Library, 2nd Floor", date: "2026-08-20" },
-    { name: "Leather Wallet", category: "Accessories", location: "Parking Area", date: "2026-08-19" },
-];
+// ===== Items loaded from the backend =====
+let foundItemsData = [];
+
+function formatDate(dateString) {
+    let d = new Date(dateString);
+    return d.toLocaleDateString();
+}
 
 // ===== Render Items =====
 function renderFoundItems() {
@@ -16,7 +12,7 @@ function renderFoundItems() {
     let categoryValue = document.getElementById("categoryFilter").value;
 
     let filtered = foundItemsData.filter(item => {
-        let matchesSearch = item.name.toLowerCase().includes(searchValue);
+        let matchesSearch = item.itemName.toLowerCase().includes(searchValue);
         let matchesCategory = categoryValue === "" || item.category === categoryValue;
         return matchesSearch && matchesCategory;
     });
@@ -28,15 +24,22 @@ function renderFoundItems() {
 
     let html = "";
     filtered.forEach(item => {
+        let isClaimed = item.status === "claimed";
         html += `
             <div class="dash-card">
+                <img class="item-image-preview" src="${imageUrl(item.image)}" alt="${item.itemName}">
                 <div class="dash-card-top">
-                    <h3>${item.name}</h3>
+                    <h3>${item.itemName}</h3>
                     <span class="badge">${item.category}</span>
                 </div>
-                <p>📍 ${item.location}</p>
-                <p>📅 Found on ${item.date}</p>
-                <button class="btn full-width" onclick="promptLoginToClaim()">Claim This Item</button>
+                <p>📍 ${item.locationFound}</p>
+                <p>📅 Found on ${formatDate(item.dateFound)}</p>
+                <span class="badge ${isClaimed ? 'badge-claimed' : 'badge-approved'}">
+                    ${isClaimed ? 'Claimed' : 'Available'}
+                </span>
+                ${isClaimed
+                    ? ""
+                    : `<button class="btn full-width" onclick="promptLoginToClaim()">Claim This Item</button>`}
             </div>`;
     });
 
@@ -45,6 +48,13 @@ function renderFoundItems() {
 
 // ===== Prompt login before claiming =====
 function promptLoginToClaim() {
+    if (isLoggedIn()) {
+        // Already logged in - send them to their dashboard to claim from there
+        let user = getUser();
+        window.location.href = user.role === "student" ? "dashboard.html" : "admin-dashboard.html";
+        return;
+    }
+
     if (confirm("You need to be logged in to claim an item. Go to login page?")) {
         window.location.href = "login.html";
     }
@@ -59,5 +69,14 @@ if (foundSearch && categoryFilter) {
     categoryFilter.addEventListener("change", renderFoundItems);
 }
 
-// ===== Init =====
-renderFoundItems();
+// ===== Init: load real items from the backend =====
+apiRequest("/items/found")
+    .then(function (items) {
+        foundItemsData = items;
+        renderFoundItems();
+    })
+    .catch(function (error) {
+        document.getElementById("foundItemsList").innerHTML =
+            "<p>Could not load items. Is the backend server running?</p>";
+        console.log(error.message);
+    });

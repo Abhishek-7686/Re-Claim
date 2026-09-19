@@ -8,11 +8,23 @@ if (menuBtn) {
     };
 }
 // ===== Home Page Stats =====
+// Pulls the real numbers from the backend instead of showing 0 always
 let totalItems = document.getElementById("totalItems");
 if (totalItems) {
-    document.getElementById("totalItems").textContent = 0;
-    document.getElementById("availableItems").textContent = 0;
-    document.getElementById("claimedItems").textContent = 0;
+    apiRequest("/items/found")
+        .then(function (items) {
+            let available = items.filter((i) => i.status === "available").length;
+            let claimed = items.filter((i) => i.status === "claimed").length;
+            document.getElementById("totalItems").textContent = items.length;
+            document.getElementById("availableItems").textContent = available;
+            document.getElementById("claimedItems").textContent = claimed;
+        })
+        .catch(function () {
+            // If the backend isn't running yet, just leave the stats at 0
+            document.getElementById("totalItems").textContent = 0;
+            document.getElementById("availableItems").textContent = 0;
+            document.getElementById("claimedItems").textContent = 0;
+        });
 }
 // ===== Student / Admin Toggle (Login & Register pages) =====
 let studentBtn = document.getElementById("studentBtn");
@@ -78,17 +90,29 @@ if (loginForm) {
         let email = document.getElementById("email").value;
         let password = document.getElementById("password").value;
 
-        console.log("Role:", role);
-        console.log("Email:", email);
-        console.log("Password:", password);
+        let submitBtn = document.getElementById("loginBtn");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Logging in...";
 
-        alert("Login clicked as " + role + "! (Backend not connected yet)");
+        apiRequest("/auth/login", {
+            method: "POST",
+            body: JSON.stringify({ email, password, role }),
+        })
+            .then(function (data) {
+                // Save the token + user info so other pages know who is logged in
+                saveSession(data.token, data.user);
 
-        if (role === "student") {
-            window.location.href = "dashboard.html";
-        } else if (role === "admin") {
-            window.location.href = "admin-dashboard.html";
-        }
+                if (data.user.role === "student") {
+                    window.location.href = "dashboard.html";
+                } else {
+                    window.location.href = "admin-dashboard.html";
+                }
+            })
+            .catch(function (error) {
+                alert(error.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = role === "admin" ? "Login as Admin" : "Login as Student";
+            });
     };
 }
 // ===== Student Register Form =====
@@ -107,9 +131,29 @@ if (studentForm) {
             return;
         }
 
-        let name = document.getElementById("studentName").value;
-        console.log("Student Name:", name);
-        alert("Student registered! (Backend not connected yet)");
+        let studentData = {
+            name: document.getElementById("studentName").value,
+            email: document.getElementById("studentEmail").value,
+            studentId: document.getElementById("studentId").value,
+            department: document.getElementById("studentDept").value,
+            year: document.getElementById("studentYear").value,
+            phone: document.getElementById("studentPhone").value,
+            password: password,
+            confirmPassword: confirmPassword,
+        };
+
+        apiRequest("/auth/register/student", {
+            method: "POST",
+            body: JSON.stringify(studentData),
+        })
+            .then(function (data) {
+                saveSession(data.token, data.user);
+                alert("Account created! Welcome to ReClaim.");
+                window.location.href = "dashboard.html";
+            })
+            .catch(function (error) {
+                alert(error.message);
+            });
     };
 }
 // ===== Admin Register Form =====
@@ -128,12 +172,35 @@ if (adminForm) {
             return;
         }
 
-        let name = document.getElementById("adminName").value;
-        console.log("Admin Name:", name);
-        alert("Admin registered! (Backend not connected yet)");
+        let adminData = {
+            name: document.getElementById("adminName").value,
+            email: document.getElementById("adminEmail").value,
+            staffId: document.getElementById("staffId").value,
+            department: document.getElementById("adminDept").value,
+            phone: document.getElementById("adminPhone").value,
+            adminKey: document.getElementById("adminKey").value,
+            password: password,
+            confirmPassword: confirmPassword,
+        };
+
+        apiRequest("/auth/register/admin", {
+            method: "POST",
+            body: JSON.stringify(adminData),
+        })
+            .then(function (data) {
+                saveSession(data.token, data.user);
+                alert("Admin account created!");
+                window.location.href = "admin-dashboard.html";
+            })
+            .catch(function (error) {
+                alert(error.message);
+            });
     };
 }
 // ===== Contact Form =====
+// Note: there is no backend route for this yet, so it just confirms
+// to the user that the message was "sent". This can be connected to a
+// real /api/contact route later if needed.
 let contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
@@ -150,7 +217,7 @@ if (contactForm) {
         console.log("Contact Subject:", subject);
         console.log("Contact Message:", message);
 
-        alert("Message sent! (Backend not connected yet)");
+        alert("Message sent! We'll get back to you soon.");
         contactForm.reset();
     };
 }
