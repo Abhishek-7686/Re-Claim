@@ -20,8 +20,8 @@
         </div>
 
         <div class="nav-buttons">
-            <span class="welcome-text">Hi, Aarav 👋</span>
-            <a href="login.html" class="btn outline">Logout</a>
+            <span class="welcome-text" id="welcomeText">Hi 👋</span>
+            <a href="#" class="btn outline" id="logoutBtn">Logout</a>
             <button class="menu-btn" id="menuBtn">☰</button>
         </div>
     </div>
@@ -54,7 +54,7 @@
             <button class="dash-nav-btn" id="tabProfileBtn" onclick="showTab('profile')">
                 <span class="dash-icon">👤</span> Profile
             </button>
-            <a href="/report-item" class="btn full-width dash-report-btn">+ Report Found Item</a>
+            <a href="report-item.html" class="btn full-width dash-report-btn">+ Report Found Item</a>
         </aside>
 
         <!-- Main content -->
@@ -138,19 +138,23 @@
                 <div class="auth-card dash-profile-card">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" value="Aarav Sharma" disabled>
+                        <input type="text" id="profileName" disabled>
                     </div>
                     <div class="form-group">
                         <label>Student ID</label>
-                        <input type="text" value="STU2026042" disabled>
+                        <input type="text" id="profileStudentId" disabled>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" value="aarav.sharma@college.edu" disabled>
+                        <input type="text" id="profileEmail" disabled>
                     </div>
                     <div class="form-group">
                         <label>Department / Year</label>
-                        <input type="text" value="Computer Science - 3rd Year" disabled>
+                        <input type="text" id="profileDeptYear" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="profilePhone" disabled>
                     </div>
                     <button class="btn full-width" disabled>Edit Profile (Coming Soon)</button>
                 </div>
@@ -166,6 +170,7 @@
     </div>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/script.js"></script>
 <script src="js/dashboard.js"></script>
 </body>
