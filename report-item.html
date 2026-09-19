@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Found Item - ReClaim</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="container nav-container">
+        <a href="index.html" class="logo">Re<span>Claim</span></a>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html">Home</a>
+            <a href="found-items.html">Found Items</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="nav-buttons">
+            <span class="welcome-text" id="welcomeText"></span>
+            <a href="#" class="btn outline" id="logoutBtn">Logout</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+    </div>
+</nav>
+
+<section class="dash-hero">
+    <div class="container">
+        <h1>Report a Found Item</h1>
+        <p>Fill in the details below. Once submitted, you'll be shown which admin to hand the item over to.</p>
+    </div>
+</section>
+
+<section class="section dash-section">
+    <div class="container">
+
+        <!-- ===== Step 1: The report form ===== -->
+        <div class="auth-card" id="reportFormCard" style="max-width:650px; margin:0 auto;">
+            <h2>Item Details</h2>
+            <p class="auth-subtitle">All fields marked * are required.</p>
+
+            <form id="reportForm">
+                <div class="form-group">
+                    <label for="itemName">Item Name *</label>
+                    <input type="text" id="itemName" placeholder="e.g. Black Wallet" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Category *</label>
+                    <select id="category" required>
+                        <option value="">Select a category</option>
+                        <option value="Bags">Bags</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Accessories">Accessories</option>
+                        <option value="Books">Books</option>
+                        <option value="Documents">Documents</option>
+                        <option value="Wallet">Wallet</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea id="description" rows="3" placeholder="Describe the item in a few sentences" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="color">Color (optional)</label>
+                    <input type="text" id="color" placeholder="e.g. Black">
+                </div>
+
+                <div class="form-group">
+                    <label for="locationFound">Location Found *</label>
+                    <input type="text" id="locationFound" placeholder="e.g. College Library" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dateFound">Date Found *</label>
+                    <input type="date" id="dateFound" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="itemImage">Item Image *</label>
+                    <input type="file" id="itemImage" accept=".jpg,.jpeg,.png,.webp" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="additionalDetails">Additional Details (optional)</label>
+                    <textarea id="additionalDetails" rows="2" placeholder="Anything else that might help identify the owner"></textarea>
+                </div>
+
+                <button type="submit" class="btn full-width" id="submitReportBtn">Submit Report</button>
+            </form>
+        </div>
+
+        <!-- ===== Step 2: Success + hand-over info (hidden until submitted) ===== -->
+        <div class="auth-card hidden" id="successCard" style="max-width:650px; margin:0 auto;">
+            <h2>✅ Report Submitted Successfully</h2>
+            <p class="auth-subtitle">Please hand over the found item to the administrator below.</p>
+
+            <div class="admin-info-card" id="adminInfoBox"></div>
+
+            <a href="dashboard.html" class="btn full-width" style="margin-top:20px;">Go to My Dashboard</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 ReClaim - College Lost & Found System</p>
+    </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/report-item.js"></script>
+</body>
+</html>
