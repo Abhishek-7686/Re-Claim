@@ -1,0 +1,31 @@
+# ===== Dependencies =====
+node_modules/
+server/node_modules/
+
+# ===== Environment variables (never commit secrets) =====
+.env
+server/.env
+
+# ===== Uploaded item images (user-generated, not source code) =====
+server/uploads/*
+!server/uploads/.gitkeep
+
+# ===== Logs =====
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Editor files =====
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# ===== Build/misc =====
+*.tmp
+*.temp
