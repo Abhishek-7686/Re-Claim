@@ -514,6 +514,7 @@ footer {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    text-decoration: none; /* the sidebar links are <a> tags in the React version */
 }
 
 .dash-nav-btn:hover {
