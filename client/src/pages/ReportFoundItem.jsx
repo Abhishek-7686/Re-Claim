@@ -18,7 +18,8 @@ function ReportFoundItem() {
     const [form, setForm] = useState(emptyForm);
     const [imageFile, setImageFile] = useState(null);
     const [submitting, setSubmitting] = useState(false);
-    const [adminInfo, setAdminInfo] = useState(null); // set after a successful submit
+    const [submitted, setSubmitted] = useState(false); // becomes true right after a successful submit
+    const [adminInfo, setAdminInfo] = useState(null); // may stay null if no admin is registered yet
 
     function updateField(field, value) {
         setForm({ ...form, [field]: value });
@@ -42,7 +43,8 @@ function ReportFoundItem() {
 
         reportFoundItem(formData, token)
             .then((data) => {
-                setAdminInfo(data.admin);
+                setAdminInfo(data.admin); // may be null if no admin is registered yet - that's OK
+                setSubmitted(true); // this is what actually switches the screen
             })
             .catch((error) => {
                 alert(error.message);
@@ -61,7 +63,7 @@ function ReportFoundItem() {
 
             <section className="section dash-section">
                 <div className="container">
-                    {!adminInfo ? (
+                    {!submitted ? (
                         <div className="auth-card" style={{ maxWidth: "650px", margin: "0 auto" }}>
                             <h2>Item Details</h2>
                             <p className="auth-subtitle">All fields marked * are required.</p>
@@ -170,7 +172,7 @@ function ReportFoundItem() {
                             <p className="auth-subtitle">Please hand over the found item to the administrator below.</p>
 
                             <div className="admin-info-card">
-                                {adminInfo.name ? (
+                                {adminInfo && adminInfo.name ? (
                                     <>
                                         <h3>Hand the item to:</h3>
                                         <div className="admin-info-row"><span>Admin Name</span><span>{adminInfo.name}</span></div>
