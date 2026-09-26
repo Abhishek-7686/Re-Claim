@@ -1,0 +1,13 @@
+{
+    "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "env": {
+        "node": true,
+        "commonjs": true,
+        "es2022": true
+    },
+    "categories": {
+        "correctness": "error",
+        "suspicious": "warn"
+    },
+    "ignorePatterns": ["node_modules", "uploads"]
+}

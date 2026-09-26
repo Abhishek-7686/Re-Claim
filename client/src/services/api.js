@@ -1,3 +1,6 @@
+// ===== This file is the ONLY place that talks to our backend. =====
+// Every component imports functions from here instead of calling
+// fetch() directly. Keeps all our API calls in one easy-to-find spot.
 
 // Change this if your backend runs on a different address
 export const API_BASE = "http://localhost:5000/api";
@@ -8,6 +11,9 @@ export function imageUrl(fileName) {
     return `${UPLOADS_BASE}/${fileName}`;
 }
 
+// A small wrapper around fetch() that adds the login token, sends JSON
+// (or FormData for image uploads), and turns error responses into a
+// normal JavaScript Error so components can just use try/catch.
 async function apiRequest(path, { method = "GET", body, token } = {}) {
     let headers = {};
 
@@ -51,6 +57,10 @@ export function loginRequest(credentials) {
 
 export function getMyProfile(token) {
     return apiRequest("/auth/me", { token });
+}
+
+export function forgotPassword(data) {
+    return apiRequest("/auth/forgot-password", { method: "POST", body: data });
 }
 
 // ===== Items (student side) =====

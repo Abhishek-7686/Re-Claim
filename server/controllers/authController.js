@@ -156,6 +156,43 @@ async function login(req, res) {
     }
 }
 
+// @route   POST /api/auth/forgot-password
+// Since this project doesn't send emails, we verify identity using the
+// person's Student ID (or Staff ID for admins) instead of an email link.
+async function forgotPassword(req, res) {
+    try {
+        const { email, role, idNumber, newPassword, confirmNewPassword } = req.body;
+
+        if (!email || !role || !idNumber || !newPassword || !confirmNewPassword) {
+            return res.status(400).json({ message: "Please fill in all fields" });
+        }
+
+        if (newPassword !== confirmNewPassword) {
+            return res.status(400).json({ message: "Passwords do not match" });
+        }
+
+        let user = await User.findOne({ email: email.toLowerCase(), role });
+
+        // Check the ID number matches too, so just knowing someone's email
+        // isn't enough to reset their password
+        let idMatches =
+            user && (role === "student" ? user.studentId === idNumber : user.staffId === idNumber);
+
+        if (!user || !idMatches) {
+            return res.status(400).json({
+                message: "We couldn't find an account with those details. Please check your email, role and ID number.",
+            });
+        }
+
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+
+        res.json({ message: "Password updated successfully. You can now log in with your new password." });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
+
 // @route   GET /api/auth/me   (needs login token)
 async function getMyProfile(req, res) {
     try {
@@ -169,4 +206,4 @@ async function getMyProfile(req, res) {
     }
 }
 
-module.exports = { registerStudent, registerAdmin, login, getMyProfile };
+module.exports = { registerStudent, registerAdmin, login, forgotPassword, getMyProfile };

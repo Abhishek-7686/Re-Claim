@@ -105,6 +105,8 @@ that in your browser.
 | Home | `/` | Everyone |
 | Login | `/login` | Everyone |
 | Register | `/register` | Everyone |
+| Forgot Password | `/forgot-password` | Everyone |
+| About | `/about` | Everyone |
 | Found Items | `/found-items` | Everyone |
 | Item Details | `/item/:id` | Any logged-in user |
 | Profile | `/profile` | Any logged-in user |
@@ -115,6 +117,25 @@ that in your browser.
 | Admin Dashboard | `/admin-dashboard` | Admins |
 | Pending Items | `/admin/pending-items` | Admins |
 | Manage Claims | `/admin/manage-claims` | Admins |
+
+## Linting
+
+Both `client` and `server` use [oxlint](https://oxc.rs/docs/guide/usage/linter.html)
+(a fast Rust-based linter) with a config file (`.oxlintrc.json`) in each folder.
+
+```
+cd client && npm run lint
+cd server && npm run lint
+```
+
+## Forgot Password
+
+Since this project doesn't send emails (see Project Scope in the original
+spec), password reset works by verifying identity instead of an email
+link: the person enters their email, role, and Student ID / Staff ID.
+If those three match an existing account, they can set a new password
+right away. This is intentionally simple for a first version — a real
+email-based reset flow is listed under Future Enhancements.
 
 ## Notes / simplifications
 

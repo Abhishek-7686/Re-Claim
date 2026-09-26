@@ -25,6 +25,7 @@ function Navbar() {
                 <div className={`nav-links ${menuOpen ? "active" : ""}`}>
                     <Link to="/">Home</Link>
                     <Link to="/found-items">Found Items</Link>
+                    <Link to="/about">About</Link>
                     {isLoggedIn && (
                         <Link to={dashboardLink}>Dashboard</Link>
                     )}
