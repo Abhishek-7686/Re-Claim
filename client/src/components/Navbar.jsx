@@ -26,6 +26,7 @@ function Navbar() {
                     <Link to="/">Home</Link>
                     <Link to="/found-items">Found Items</Link>
                     <Link to="/about">About</Link>
+                    <Link to="/contact">Contact</Link>
                     {isLoggedIn && (
                         <Link to={dashboardLink}>Dashboard</Link>
                     )}

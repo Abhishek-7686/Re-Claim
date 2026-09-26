@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema(
         year: { type: Number },
         phone: { type: String },
 
+        // ---- Forgot password (OTP) fields ----
+        // These are only ever filled in temporarily while someone is
+        // resetting their password, then cleared again.
+        resetPasswordOtp: { type: String, default: null }, // stored hashed, never plain text
+        resetPasswordOtpExpires: { type: Date, default: null },
+
         // ---- Admin-only fields ----
         staffId: { type: String },
         // These extra fields are shown to students so they know where to

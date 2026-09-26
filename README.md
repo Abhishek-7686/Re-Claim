@@ -107,6 +107,7 @@ that in your browser.
 | Register | `/register` | Everyone |
 | Forgot Password | `/forgot-password` | Everyone |
 | About | `/about` | Everyone |
+| Contact | `/contact` | Everyone |
 | Found Items | `/found-items` | Everyone |
 | Item Details | `/item/:id` | Any logged-in user |
 | Profile | `/profile` | Any logged-in user |
@@ -128,14 +129,34 @@ cd client && npm run lint
 cd server && npm run lint
 ```
 
-## Forgot Password
+## Forgot Password (OTP)
 
-Since this project doesn't send emails (see Project Scope in the original
-spec), password reset works by verifying identity instead of an email
-link: the person enters their email, role, and Student ID / Staff ID.
-If those three match an existing account, they can set a new password
-right away. This is intentionally simple for a first version — a real
-email-based reset flow is listed under Future Enhancements.
+Password reset is a two-step OTP flow:
+
+1. The person enters their email + role → the backend generates a random
+   6-digit code, saves it (hashed, like a password) on their account with
+   a 10-minute expiry, and emails it to them.
+2. They enter the code + a new password → the backend checks the code
+   matches and hasn't expired, then updates the password.
+
+**You don't need to set up email to test this.** If the `SMTP_*`
+variables in `server/.env` are left blank, the OTP is simply printed to
+the backend's terminal instead of being emailed — look for a line like:
+
+```
+[DEV MODE] No SMTP configured. OTP for someone@college.edu is: 042917
+```
+
+To send real emails, fill in `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`,
+`SMTP_PASS`, and `SMTP_FROM` in `server/.env` (see `.env.example` for a
+Gmail example — use an **App Password**, not your normal Gmail password).
+
+## Contact Page
+
+The Contact page (`/contact`) is a static, read-only page. It fetches
+the registered admin's public details (name, email, office, phone,
+office hours) from `GET /api/admin/contact` and just displays them —
+there's no message form.
 
 ## Notes / simplifications
 

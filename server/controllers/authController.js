@@ -3,7 +3,9 @@
 
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const User = require("../models/User");
+const { sendOtpEmail } = require("../config/mailer");
 
 // Small helper to create a login token for a user
 function createToken(user) {
@@ -156,14 +158,49 @@ async function login(req, res) {
     }
 }
 
-// @route   POST /api/auth/forgot-password
-// Since this project doesn't send emails, we verify identity using the
-// person's Student ID (or Staff ID for admins) instead of an email link.
-async function forgotPassword(req, res) {
+// @route   POST /api/auth/forgot-password/request-otp
+// Step 1: generate a 6-digit OTP, save it (hashed) on the user with a
+// 10-minute expiry, and email it to them.
+async function requestPasswordResetOtp(req, res) {
     try {
-        const { email, role, idNumber, newPassword, confirmNewPassword } = req.body;
+        const { email, role } = req.body;
 
-        if (!email || !role || !idNumber || !newPassword || !confirmNewPassword) {
+        if (!email || !role) {
+            return res.status(400).json({ message: "Please enter your email and select your role" });
+        }
+
+        let user = await User.findOne({ email: email.toLowerCase(), role });
+
+        // We don't reveal whether the account exists or not - this stops
+        // someone from using this form to check who is registered.
+        if (!user) {
+            return res.json({
+                message: "If an account with that email exists, an OTP has been sent to it.",
+            });
+        }
+
+        // Generate a random 6-digit code, e.g. "042917"
+        let otp = crypto.randomInt(0, 1000000).toString().padStart(6, "0");
+
+        user.resetPasswordOtp = await bcrypt.hash(otp, 10); // never store the OTP in plain text
+        user.resetPasswordOtpExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes from now
+        await user.save();
+
+        await sendOtpEmail(user.email, otp);
+
+        res.json({ message: "If an account with that email exists, an OTP has been sent to it." });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
+
+// @route   POST /api/auth/forgot-password/verify-otp
+// Step 2: check the OTP matches and hasn't expired, then set the new password.
+async function verifyOtpAndResetPassword(req, res) {
+    try {
+        const { email, role, otp, newPassword, confirmNewPassword } = req.body;
+
+        if (!email || !role || !otp || !newPassword || !confirmNewPassword) {
             return res.status(400).json({ message: "Please fill in all fields" });
         }
 
@@ -173,18 +210,23 @@ async function forgotPassword(req, res) {
 
         let user = await User.findOne({ email: email.toLowerCase(), role });
 
-        // Check the ID number matches too, so just knowing someone's email
-        // isn't enough to reset their password
-        let idMatches =
-            user && (role === "student" ? user.studentId === idNumber : user.staffId === idNumber);
+        if (!user || !user.resetPasswordOtp || !user.resetPasswordOtpExpires) {
+            return res.status(400).json({ message: "Please request a new OTP first" });
+        }
 
-        if (!user || !idMatches) {
-            return res.status(400).json({
-                message: "We couldn't find an account with those details. Please check your email, role and ID number.",
-            });
+        if (user.resetPasswordOtpExpires < new Date()) {
+            return res.status(400).json({ message: "This OTP has expired. Please request a new one." });
+        }
+
+        let otpMatches = await bcrypt.compare(otp, user.resetPasswordOtp);
+        if (!otpMatches) {
+            return res.status(400).json({ message: "Incorrect OTP. Please try again." });
         }
 
         user.password = await bcrypt.hash(newPassword, 10);
+        // Clear the OTP so it can't be reused
+        user.resetPasswordOtp = null;
+        user.resetPasswordOtpExpires = null;
         await user.save();
 
         res.json({ message: "Password updated successfully. You can now log in with your new password." });
@@ -206,4 +248,11 @@ async function getMyProfile(req, res) {
     }
 }
 
-module.exports = { registerStudent, registerAdmin, login, forgotPassword, getMyProfile };
+module.exports = {
+    registerStudent,
+    registerAdmin,
+    login,
+    requestPasswordResetOtp,
+    verifyOtpAndResetPassword,
+    getMyProfile,
+};

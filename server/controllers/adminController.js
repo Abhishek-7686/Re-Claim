@@ -5,6 +5,19 @@ const Item = require("../models/Item");
 const Claim = require("../models/Claim");
 const User = require("../models/User");
 
+// @route   GET /api/admin/contact   (public - no login needed)
+// Used by the Contact page to show real admin details instead of a form.
+async function getPublicAdminContact(req, res) {
+    try {
+        let admin = await User.findOne({ role: "admin" }).select(
+            "name email office officeLocation phone officeHours"
+        );
+        res.json(admin || null);
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong", error: error.message });
+    }
+}
+
 // @route   GET /api/admin/items/pending
 async function getPendingItems(req, res) {
     try {
@@ -97,6 +110,7 @@ async function getDashboardStats(req, res) {
 }
 
 module.exports = {
+    getPublicAdminContact,
     getPendingItems,
     getApprovedItems,
     approveItem,

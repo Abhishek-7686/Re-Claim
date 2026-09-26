@@ -59,8 +59,17 @@ export function getMyProfile(token) {
     return apiRequest("/auth/me", { token });
 }
 
-export function forgotPassword(data) {
-    return apiRequest("/auth/forgot-password", { method: "POST", body: data });
+export function requestPasswordResetOtp(data) {
+    return apiRequest("/auth/forgot-password/request-otp", { method: "POST", body: data });
+}
+
+export function verifyOtpAndResetPassword(data) {
+    return apiRequest("/auth/forgot-password/verify-otp", { method: "POST", body: data });
+}
+
+// ===== Public admin contact info (for the static Contact page) =====
+export function getPublicAdminContact() {
+    return apiRequest("/admin/contact");
 }
 
 // ===== Items (student side) =====

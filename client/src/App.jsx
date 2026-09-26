@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import FoundItems from "./pages/FoundItems";
 import ItemDetails from "./pages/ItemDetails";
 
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/contact" element={<Contact />} />
                 <Route path="/found-items" element={<FoundItems />} />
 
                 {/* Any logged-in user (student or admin) can view item details */}

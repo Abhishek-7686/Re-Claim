@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const {
+    getPublicAdminContact,
     getPendingItems,
     getApprovedItems,
     approveItem,
@@ -14,6 +15,11 @@ const { getAllClaims, approveClaim, rejectClaim } = require("../controllers/clai
 
 const protect = require("../middleware/authMiddleware");
 const { adminOnly } = require("../middleware/roleMiddleware");
+
+// Public - used by the Contact page, no login needed.
+// This must be declared BEFORE router.use(protect, adminOnly) below,
+// otherwise that middleware would block it too.
+router.get("/contact", getPublicAdminContact);
 
 // Every route below needs the user to be logged in AND be an admin
 router.use(protect, adminOnly);
