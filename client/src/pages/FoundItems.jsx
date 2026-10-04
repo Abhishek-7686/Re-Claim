@@ -26,9 +26,6 @@ function FoundItems() {
         return matchesSearch && matchesCategory;
     });
 
-    // Clicking "View / Claim" on a card just takes the person to the
-    // item's details page. If they're not logged in yet, ItemDetails
-    // itself is a protected route, so they'll be sent to Login first.
     function handleCardClick(item) {
         if (!isLoggedIn) {
             if (confirm("You need to be logged in to claim an item. Go to login page?")) {
