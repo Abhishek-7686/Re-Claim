@@ -34,16 +34,14 @@ function ReportFoundItem() {
 
         setSubmitting(true);
 
-        // We use FormData here (instead of JSON) because we are also
-        // sending an image file along with the text fields.
         let formData = new FormData();
         Object.keys(form).forEach((key) => formData.append(key, form[key]));
         formData.append("image", imageFile);
 
         reportFoundItem(formData, token)
             .then((data) => {
-                setAdminInfo(data.admin); // may be null if no admin is registered yet - that's OK
-                setSubmitted(true); // this is what actually switches the screen
+                setAdminInfo(data.admin); 
+                setSubmitted(true); 
             })
             .catch((error) => {
                 alert(error.message);
