@@ -18,9 +18,8 @@ function ReportFoundItem() {
     const [form, setForm] = useState(emptyForm);
     const [imageFile, setImageFile] = useState(null);
     const [submitting, setSubmitting] = useState(false);
-    const [submitted, setSubmitted] = useState(false); // becomes true right after a successful submit
-    const [adminInfo, setAdminInfo] = useState(null); // may stay null if no admin is registered yet
-
+    const [submitted, setSubmitted] = useState(false); 
+    const [adminInfo, setAdminInfo] = useState(null); 
     function updateField(field, value) {
         setForm({ ...form, [field]: value });
     }
