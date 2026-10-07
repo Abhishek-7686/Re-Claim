@@ -82,21 +82,6 @@ that in your browser.
 > The frontend calls the backend at `http://localhost:5000/api` — this is
 > set at the top of `client/src/services/api.js` if you ever need to change it.
 
-## Using the app
-
-1. Go to **Register**, pick the **Admin** tab, and create at least one
-   admin account first (you'll need the `ADMIN_REGISTRATION_KEY` from your
-   `.env` file). This is who students will be shown to hand items over to.
-2. Register a **Student** account.
-3. As a student: **Report Found Item** → fill the form → upload a photo →
-   submit. You'll be shown the admin's contact details.
-4. Log in as the admin → **Pending Items** → **Approve** (this means
-   "I physically received the item"). The item now shows on the public
-   **Found Items** page as *Available*.
-5. As a student, browse **Found Items** (or the sidebar on the dashboard)
-   and open an item to **Submit Claim**, describing why it's theirs.
-6. As admin → **Manage Claims** → **Approve**. The item status becomes
-   *Claimed*.
 
 ## Pages (matches the original spec's recommended structure)
 
