@@ -1,10 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-// Wrap any page that needs login with this component.
-// Usage: <ProtectedRoute role="student"><StudentDashboard /></ProtectedRoute>
-// Leave "role" out if the page just needs ANY logged-in user (e.g. Profile).
-
 function ProtectedRoute({ children, role }) {
     const { isLoggedIn, user } = useAuth();
 
