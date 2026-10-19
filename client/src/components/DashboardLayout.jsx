@@ -1,12 +1,6 @@
 import { NavLink, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-// A shared sidebar + page shell, reused by every dashboard-style page
-// (for both students and admins). Keeps the sidebar navigation the
-// same on every page instead of copy-pasting it everywhere.
-//
-// Props: title, subtitle, children
-
 const studentLinks = [
     { to: "/dashboard", label: "Overview", icon: "📊", end: true },
     { to: "/my-reports", label: "My Reported Items", icon: "📦" },
