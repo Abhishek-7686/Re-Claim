@@ -1,6 +1,3 @@
-// This context keeps track of "who is logged in" for the whole app,
-// so any component can read it with useAuth() instead of passing
-// props down through every page.
 
 import { createContext, useContext, useState } from "react";
 import { loginRequest } from "../services/api";
