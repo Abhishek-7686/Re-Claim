@@ -2,14 +2,6 @@ import { Link } from "react-router-dom";
 import { imageUrl } from "../services/api";
 import { formatDate, statusBadgeClass, statusLabel } from "../utils";
 
-// A single found-item card, reused on Found Items, My Reports,
-// Pending Items and the dashboards.
-//
-// Props:
-//   item          - the item object from the backend
-//   linkToDetails - if true, the title links to /item/:id
-//   actions       - optional JSX (buttons) rendered at the bottom, e.g. Approve/Reject
-
 function ItemCard({ item, linkToDetails = false, actions = null }) {
     return (
         <div className="dash-card">
