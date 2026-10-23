@@ -41,13 +41,3 @@ Re-Claim/
     ├── middleware/ (auth, role check, image upload)
     └── uploads/                 <- uploaded item images get saved here
 ```
-
-## How to run it
-
-### 1. Start the backend
-
-```
-cd server
-npm install
-cp .env.example .env
-```
